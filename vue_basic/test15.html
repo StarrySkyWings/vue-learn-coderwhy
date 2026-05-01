@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>v-if的使用</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <!-- <div class="info" v-if="Object.keys(info).length"> -->
+      <template v-if="Object.keys(info).length">
+        <h2>个人信息</h2>
+        <ul>
+          <li>姓名：{{info.name}}</li>
+          <li>年龄：{{info.age}}</li>
+        </ul>
+      </template>
+      <!-- </div> -->
+
+      <!-- <div v-else> -->
+      <template v-else>
+        <h2>没有输入个人信息</h2>
+        <p>请输入个人信息后，再进行展示</p>
+      </template>
+
+      <!-- </div> -->
+    </div>
+
+    <script>
+      // 1.创建app
+      const app = Vue.createApp({
+        data() {
+          return {
+            info: {
+              name: "zhangsan",
+              age: 18,
+            },
+          };
+        },
+      });
+
+      //2.挂载app
+      app.mount("#app");
+    </script>
+  </body>
+</html>

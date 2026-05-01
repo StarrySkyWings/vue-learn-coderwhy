@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>命令式编程和声明式编程的区别</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <h2>当前计数：<span class="counter"></span></h2>
+    <button class="add">+1</button>
+    <button class="sub">-1</button>
+
+    <script>
+      const h2El = document.querySelector("h2");
+      const addBtnEL = document.querySelector(".add");
+      const subBtnEL = document.querySelector(".sub");
+      const counterEl = document.querySelector(".counter");
+
+      let count = 0;
+      counterEl.textContent = count;
+
+      addBtnEL.onclick = function () {
+        count++;
+        counterEl.textContent = count;
+      };
+      subBtnEL.onclick = function () {
+        count--;
+        counterEl.textContent = count;
+      };
+    </script>
+  </body>
+</html>

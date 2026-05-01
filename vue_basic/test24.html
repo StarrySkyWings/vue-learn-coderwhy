@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>watch的选项deep-immediate</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <h2>{{ info.name }}</h2>
+      <button @click="changeInfo">修改info</button>
+    </div>
+
+    <script>
+      // 1.创建app
+      const app = Vue.createApp({
+        data() {
+          return {
+            info: { name: "tom", age: 18 },
+          };
+        },
+        methods: {
+          changeInfo() {
+            this.info.name = "jack";
+          },
+        },
+        watch: {
+          // 默认watch不会进行深度监听
+          // info(newValue,oldValue){
+          //   console.log('info变化了',newValue,oldValue)
+          // }
+          info: {
+            handler(newValue, oldValue) {
+              console.log("info变化了", newValue, oldValue);
+            },
+            deep: true,
+            immediate:true
+          },
+          "info.name":function(newValue,oldValue){
+            console.log('name发生改变',newValue,oldValue)
+          }
+        },
+      });
+
+      //2.挂载app
+      app.mount("#app");
+    </script>
+  </body>
+</html>

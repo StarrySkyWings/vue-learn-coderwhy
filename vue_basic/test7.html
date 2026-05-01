@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>methods属性的使用</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <h2>当前计数为：{{counter}}</h2>
+      <button @click="add">+</button>
+      <button @click="min">-</button>
+    </div>
+
+    <script>
+      const app = Vue.createApp({
+        data() {
+          return {
+            counter: 0,
+          };
+        },
+        methods:{
+          add(){
+            this.counter++
+          },
+          min(){
+            this.counter--
+          }
+        }
+      });
+
+      app.mount('#app')
+    </script>
+  </body>
+</html>

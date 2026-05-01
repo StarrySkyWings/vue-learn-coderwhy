@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>购物车综合案例1</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+      table {
+        border-collapse: collapse;
+        text-align: center;
+      }
+      thead {
+        background-color: #f5f5f5;
+      }
+      th,
+      td {
+        border: 1px solid #aaa;
+        padding: 8px 16px;
+      }
+      .active{
+        background-color: #aaa;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <template v-if="books.length">
+        <table>
+          <thead>
+            <tr>
+              <th>序号</th>
+              <th>书籍名称</th>
+              <th>出版日期</th>
+              <th>价格</th>
+              <th>购买数量</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr :class="{active:index === currentIndex}" @mousemove="changeBgColor(index)" v-for="(item,index) in books" :key="item.id">
+              <td>{{index + 1}}</td>
+              <td>{{item.name}}</td>
+              <td>{{item.date}}</td>
+              <td>{{formatPrice(item.price)}}</td>
+              <td>
+                <button
+                  :disabled="item.count <= 1"
+                  @click="decrement(index,item)"
+                >
+                  -
+                </button>
+                {{item.count}}
+                <button @click="increment(index,item)">+</button>
+              </td>
+              <td>
+                <button @click="removeBook(index)">移除</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <h2>总价：{{formatPrice(totalPrice)}}</h2>
+      </template>
+      <h1 v-else>购物车为空，请添加喜欢的书籍~</h1>
+    </div>
+
+    <script>
+      // 1.创建app
+      const app = Vue.createApp({
+        data() {
+          return {
+            currentIndex:0,
+            books: [
+              {
+                id: 1,
+                name: "《算法导论》",
+                date: "2006-9",
+                price: 85.0,
+                count: 1,
+              },
+              {
+                id: 2,
+                name: "《UNIX编程艺术》",
+                date: "2006-2",
+                price: 59.0,
+                count: 1,
+              },
+              {
+                id: 3,
+                name: "《编程珠玑》",
+                date: "2008-10",
+                price: 39.0,
+                count: 1,
+              },
+              {
+                id: 4,
+                name: "《代码大全》",
+                date: "2006-3",
+                price: 128.0,
+                count: 1,
+              },
+            ],
+          };
+        },
+        computed: {
+          totalPrice() {
+            // let price = 0
+            // for(const item of this.books){
+            //   price += item.price * item.count
+            // }
+            // return price
+
+            return this.books.reduce((preValue, item) => {
+              return preValue + item.price * item.count;
+            }, 0);
+          },
+        },
+        methods: {
+          formatPrice(price) {
+            return "￥" + price;
+          },
+          decrement(index, item) {
+            // this.books[index].count--
+            item.count--;
+          },
+          increment(index, item) {
+            // this.books[index].count++
+            item.count++;
+          },
+          removeBook(index) {
+            this.books.splice(index, 1);
+          },
+          changeBgColor(index){
+            this.currentIndex = index
+          }
+        },
+      });
+
+      //2.挂载app
+      app.mount("#app");
+    </script>
+  </body>
+</html>

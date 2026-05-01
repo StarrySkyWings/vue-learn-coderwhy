@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>v-if、v-else-if、v-else的使用</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+  <div id="app">
+    <h1 v-if="score > 90">优秀</h1>
+    <h2 v-else-if="score > 80">良好</h2>
+    <h3 v-else-if="score >= 60">合格</h3>
+    <h3 v-else>不合格</h3>
+  </div>
+
+  <script>
+    // 1.创建app
+    const app = Vue.createApp({
+      data(){
+        return {
+          score:60
+        }
+      }
+    })
+
+    //2.挂载app
+    app.mount('#app')
+  </script>
+</body>
+</html>

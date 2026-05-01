@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>watch的基本使用</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <h2>{{message}}</h2>
+      <button @click="changeMessage">修改message</button>
+    </div>
+
+    <script>
+      // 1.创建app
+      const app = Vue.createApp({
+        data() {
+          return {
+            message: "hello vue",
+            info: { name: "tom", age: 18 },
+          };
+        },
+        watch: {
+          message(newValue, oldValue) {
+            console.log("message发生了变化", newValue, oldValue);
+          },
+          info(newValue,oldValue){
+            console.log('info发生了变化',newValue,oldValue)
+            // 获取原生对象
+            console.log({...newValue})
+            console.log(Vue.toRaw(newValue))
+          }
+        },
+        methods: {
+          changeMessage() {
+            this.message = "hello world";
+            this.info = {name:'jack',age:20}
+          },
+        },
+      });
+
+      //2.挂载app
+      app.mount("#app");
+    </script>
+  </body>
+</html>

@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue的初体验-计数器功能</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <h1>当前计数是:{{count}}</h1>
+      <button @click="add">+1</button>
+      <button @click="min">-1</button>
+      <h2>电影列表</h2>
+      <ul>
+        <li v-for="(item,index) in movies" :key="index">{{item}}</li>
+      </ul>
+    </div>
+    <script>
+      const app = Vue.createApp({
+        // template: `
+        // <h1>当前计数是:{{count}}</h1>
+        // <button @click="add">+1</button>
+        // <button @click="min">-1</button>
+        // `,
+        data: function () {
+          return {
+            count: 0,
+            movies:['大话西游','西游记','红楼梦','水浒传']
+          };
+        },
+        methods:{
+          add(){
+           this.count++
+          },
+          min(){
+            this.count--
+          }
+        }
+      });
+      app.mount("#app");
+    </script>
+  </body>
+</html>

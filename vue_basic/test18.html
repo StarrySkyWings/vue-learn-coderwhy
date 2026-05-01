@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>v-for的基本使用</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+  <div id="app">
+    <ul>
+      <li v-for="item in movies">{{item}}</li>
+    </ul>
+    <ul>
+      <li v-for="(item,index) in movies">{{index + 1}} - {{item}}</li>
+    </ul>
+    <div v-for="item in products">
+      <h3>商品名：{{item.name}}</h3>
+      <span>价格：{{item.price}}</span>
+      <p>描述：{{item.desc}}</p>
+    </div>
+  </div>
+
+  <script>
+    function foo(){
+      return 'xxx'
+    }
+
+    console.log(foo)
+    // 1.创建app
+    const app = Vue.createApp({
+      data(){
+        return {
+          movies:['星际穿越','熊出没','哆啦A梦','奥特曼'],
+          products:[
+            {id:'001',name:'mac',price:9.9,desc:'秒杀价格9.9'},
+            {id:'002',name:'win',price:8.8,desc:'秒杀价格8.8'},
+            {id:'003',name:'linux',price:7.7,desc:'秒杀价格7.7'},
+          ]
+        }
+      }
+    })
+
+    //2.挂载app
+    app.mount('#app')
+  </script>
+</body>
+</html>

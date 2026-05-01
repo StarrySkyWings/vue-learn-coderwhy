@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>购物车综合案例2</title>
+    <style>
+      .active {
+        background-color: orange;
+      }
+    </style>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <ul>
+        <li :class="{active:index === currentIndex}" @mousemove="liClick(index)" v-for="item,index in movies" :key="index">
+          {{item}}
+        </li>
+      </ul>
+    </div>
+
+    <script>
+      // 1.创建app
+      const app = Vue.createApp({
+        data() {
+          return {
+            currentIndex:-1,
+            movies: ["星际穿越", "阿凡达", "大话西游", "黑客帝国"],
+          };
+        },
+        methods:{
+          liClick(index){
+            this.currentIndex = index
+          }
+        }
+      });
+
+      //2.挂载app
+      app.mount("#app");
+    </script>
+  </body>
+</html>

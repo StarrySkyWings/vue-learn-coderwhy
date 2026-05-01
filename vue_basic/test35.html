@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue的根组件使用</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <h1>{{message}}</h1>
+    </div>
+
+    <script>
+      //组件：App组件（根组件）
+      const App = {
+        data() {
+          return {
+            message: "hello world",
+          };
+        },
+      };
+      // 1.创建app
+      const app = Vue.createApp(App);
+
+      //2.挂载app
+      app.mount("#app");
+    </script>
+  </body>
+</html>

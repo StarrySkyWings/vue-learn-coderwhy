@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>条件渲染</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+  <div id="app">
+    <ul v-if="names.length > 0">
+      <li v-for="item in names">{{item}}</li>
+    </ul>
+    <h2 v-else>当前数组names没有数据，请获取数据再重试</h2>
+  </div>
+
+  <script>
+    // 1.创建app
+    const app = Vue.createApp({
+      data(){
+        return {
+          names:['abc','cba','nba']
+        }
+      }
+    })
+
+    //2.挂载app
+    app.mount('#app')
+  </script>
+</body>
+</html>

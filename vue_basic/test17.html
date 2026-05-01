@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>阶段小案例-图片的显示与隐藏以及v-show的使用</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+      img {
+        width: 200px;
+        height: 200px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div>
+        <button @click="changPic">切换</button>
+      </div>
+      <template v-if="isShow">
+        <img
+          src="https://game.gtimg.cn/images/yxzj/zlkdatasys/images/image/20221122/16690818111152.jpg"
+          alt=""
+        />
+      </template>
+      <div v-show="isShow">
+        <img
+          src="https://game.gtimg.cn/images/yxzj/zlkdatasys/images/image/20221122/16690818111152.jpg"
+          alt=""
+        />
+      </div>
+    </div>
+
+    <script>
+      // 1.创建app
+      const app = Vue.createApp({
+        data() {
+          return {
+            isShow: true,
+          };
+        },
+        methods: {
+          changPic() {
+            this.isShow = !this.isShow;
+          },
+        },
+      });
+
+      //2.挂载app
+      app.mount("#app");
+    </script>
+  </body>
+</html>

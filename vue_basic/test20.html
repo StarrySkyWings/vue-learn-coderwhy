@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>数组更新方法的监听</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <ul>
+        <!-- <li v-for="item in names">{{item}}</li> -->
+        <li v-for="item of names">{{item}}</li>
+      </ul>
+      <button @click="changeArray">修改数组</button>
+    </div>
+
+    <script>
+      // 1.创建app
+      const app = Vue.createApp({
+        data() {
+          return {
+            names: ["tom", "alice", "alex", "hans"],
+          };
+        },
+        methods: {
+          changeArray() {
+            // this.names = ['jerry','jack']
+            // this.names.push('john')
+            // this.names.pop()
+            // this.names.splice(2,1,'jack')
+            // this.names.sort()
+            // this.names.reverse()
+            const newNames = this.names.map(item => item + ' doing')
+            this.names = newNames
+          },
+        },
+      });
+
+      //2.挂载app
+      app.mount("#app");
+    </script>
+  </body>
+</html>

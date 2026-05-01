@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>绑定事件的使用</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+      .box {
+        width: 100px;
+        height: 100px;
+        background-color: orange;
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div class="box" v-on:click="divClick"></div>
+
+      <div class="box" @click="divClick"></div>
+
+      <h2>{{counter}}</h2>
+      <button @click="add">+</button>
+      <button @click="counter++">+</button>
+
+      <div class="box" @click="divClick" @mousemove="divMousemove"></div>
+      <div class="box" v-on="{click:divClick,mousemove:divMousemove}"></div>
+      <div class="box" @="{click:divClick,mousemove:divMousemove}"></div>
+    </div>
+
+    <script>
+      // 1.创建app
+      const app = Vue.createApp({
+        data() {
+          return {
+            counter:0
+          };
+        },
+        methods:{
+          divClick(){
+            console.log('divClick')
+          },
+          add(){
+            this.counter++
+          },
+          divMousemove(){
+            console.log('mousemove')
+          }
+        }
+      });
+
+      //2.挂载app
+      app.mount("#app");
+    </script>
+  </body>
+</html>

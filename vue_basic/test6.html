@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>data属性的使用</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <h2>{{message}}</h2>
+      <button @click="changeMessage">改变message</button>
+    </div>
+
+    <script>
+      const app = Vue.createApp({
+        data() {
+          return {
+            message: "hello world",
+          };
+        },
+        methods: {
+          changeMessage() {
+            this.message = "hello data"
+          },
+        },
+      });
+
+      app.mount("#app");
+    </script>
+  </body>
+</html>

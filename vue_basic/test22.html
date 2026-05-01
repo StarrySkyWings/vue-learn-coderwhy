@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>计算属性-对象set和get写法</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <h2>{{firstName + " " + lastName}}</h2>
+      <h2>{{firstName}} {{lastName}}</h2>
+      <h2>{{getFullName()}}</h2>
+      <h2>{{fullName}}</h2>
+      <h2>{{score >= 60 ? '及格' : '不及格'}}</h2>
+      <h2>{{getScoreLevel()}}</h2>
+      <h2>{{scoreLevel}}</h2>
+      <h2>{{message.split(" ").reverse().join(" ")}}</h2>
+      <h2>{{reverseMessage()}}</h2>
+      <h2>{{reverseMessages}}</h2>
+      <button @click="changeName">修改lastname</button>
+      <hr>
+      <button @click="setFullName">设置fullname</button>
+    </div>
+
+    <script>
+      // 1.创建app
+      const app = Vue.createApp({
+        data() {
+          return {
+            firstName: "kobe",
+            lastName: "bryant",
+            score: 80,
+            message: "hello world",
+          };
+        },
+        methods: {
+          changeName() {
+            this.lastName = 'why'
+          },
+          getFullName() {
+            return this.firstName + " " + this.lastName;
+          },
+          getScoreLevel() {
+            return this.score >= 60 ? "及格" : "不及格";
+          },
+          reverseMessage() {
+            return this.message.split(" ").reverse().join(" ");
+          },
+          setFullName(){
+            this.fullName = "hello world"
+          }
+        },
+        computed: {
+          // fullName() {
+          //   console.log("computed---");
+          //   return this.fullName + " " + this.lastName;
+          // },
+          fullName:{
+            get(){
+              return this.fullName + " " + this.lastName;
+            },
+            set(value){
+              const names = value.split(" ")
+              this.firstName = names[0]
+              this.lastName = names[1]
+            }
+          },
+          scoreLevel() {
+            return this.score >= 60 ? "及格" : "不及格";
+          },
+          reverseMessages() {
+            return this.message.split(" ").reverse().join(" ");
+          },
+        },
+      });
+
+      //2.挂载app
+      app.mount("#app");
+    </script>
+  </body>
+</html>

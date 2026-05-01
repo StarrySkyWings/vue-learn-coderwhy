@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>v-for遍历其他类别</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+  <div id="app">
+    <h1>{{message}}</h1>
+
+    <ul>
+      <li v-for="(value,key,index) in info">{{value}}-{{key}}-{{index}}</li>
+    </ul>
+
+    <ul>
+      <li v-for="item in message">{{item}}</li>
+    </ul>
+
+    <ul>
+      <li v-for="item in 10">{{item}}</li>
+    </ul>
+  </div>
+
+  <script>
+    // 1.创建app
+    const app = Vue.createApp({
+      data(){
+        return {
+          message:'hello world',
+          info:{name:'tom',age:18,height:1.8}
+        }
+      }
+    })
+
+    //2.挂载app
+    app.mount('#app')
+  </script>
+</body>
+</html>

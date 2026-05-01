@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+      .product {
+        background-color: orange;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <home-nav></home-nav>
+      <product-item></product-item>
+      <product-item></product-item>
+      <product-item></product-item>
+    </div>
+
+    <template id="product">
+      <div class="product">
+        <h2>{{title}}</h2>
+        <p>商品描述，限时折扣，赶紧抢购</p>
+        <p>价格:{{price}}</p>
+      </div>
+      <button @click="favarItem">收藏</button>
+    </template>
+
+    <template id="nav">
+      <div>---------- nav start ----------</div>
+      <h2>我是应用程序的导航</h2>
+      <product-item></product-item>
+      <div>---------- nav start ----------</div>
+    </template>
+
+    <script>
+      // 1.创建app
+      const app = Vue.createApp({
+        data() {
+          return {};
+        },
+      });
+
+      // 注册全局组件:一旦注册成功，全局使用
+      app.component("product-item", {
+        template: "#product",
+        data() {
+          return {
+            title: "我是商品标题",
+            price: 9.9,
+          };
+        },
+        methods:{
+          favarItem(){
+            console.log('收藏当前的item')
+          }
+        }
+      });
+
+      app.component("home-nav", {
+        template: "#nav",
+      });
+
+      //2.挂载app
+      app.mount("#app");
+    </script>
+  </body>
+</html>

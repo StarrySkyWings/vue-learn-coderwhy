@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>绑定事件的修饰符</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    .box{
+      width: 100px;
+      height: 100px;
+      background-color: orange;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <h1>{{message}}</h1>
+    <div class="box" @click="divClick">
+      <button @click.stop="btnClick">按钮1</button>
+    </div>
+  </div>
+
+  <script>
+    // 1.创建app
+    const app = Vue.createApp({
+      data(){
+        return {
+          message:'hello world'
+        }
+      },
+      methods:{
+        btnClick(){
+          console.log('btnClick')
+        },
+        divClick(){
+          console.log('divClick')
+        }
+      }
+    })
+
+    //2.挂载app
+    app.mount('#app')
+  </script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>注册全局组件</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+      .product {
+        background-color: orange;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <!-- <div class="product">
+        <h2>我是商品</h2>
+        <div>商品图片</div>
+        <div>商品价格：<span>￥9.9</span></div>
+        <p>商品描述信息，9.9秒杀</p>
+      </div> -->
+
+      <!-- 使用product-item组件 -->
+      <product-item></product-item>
+      <product-item></product-item>
+      <product-item></product-item>
+    </div>
+
+    <template id="item">
+      <div class="product">
+        <h2>我是商品</h2>
+        <div>商品图片</div>
+        <div>商品价格：<span>￥9.9</span></div>
+        <p>商品描述信息，9.9秒杀</p>
+      </div>
+    </template>
+
+    <script>
+      //组件：App组件（根组件）
+      const App = {};
+
+      // 1.创建app
+      const app = Vue.createApp(App);
+
+      const productItem = {
+        template: "#item",
+      };
+
+      // 注册全局组件
+      app.component("product-item", productItem);
+
+      //2.挂载app
+      app.mount("#app");
+    </script>
+  </body>
+</html>

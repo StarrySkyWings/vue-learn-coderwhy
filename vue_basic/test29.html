@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>v-model绑定textarea</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+  <div id="app">
+    <textarea cols="30" rows="10" v-model="message"></textarea>
+    <p>输入的内容:{{message}}</p>
+  </div>
+
+  <script>
+    // 1.创建app
+    const app = Vue.createApp({
+      data(){
+        return {
+          message:''
+        }
+      }
+    })
+
+    //2.挂载app
+    app.mount('#app')
+  </script>
+</body>
+</html>

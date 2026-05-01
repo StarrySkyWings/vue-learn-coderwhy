@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>v-once、v-text、v-html、v-pre、v-cloak指令的使用</title>
+    <style>
+      [v-cloak] {
+        display: none;
+      }
+    </style>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <div v-cloak>
+        <h1 v-once>{{message}}</h1>
+        <h2>{{message}}</h2>
+        <h2>当前数值是:{{counter}}</h2>
+        <h2>双倍数值是:{{counter * 2}}</h2>
+        <h2>{{age >= 18 ? '成年人' : '未成年人'}}</h2>
+        <h2>{{formatDate(time)}}</h2>
+        <button @click="changeMessage">change</button>
+        <h2 v-text="content"></h2>
+        <h2 v-html="content"></h2>
+        <h2 v-pre>{{message}}</h2>
+      </div>
+    </div>
+
+    <script>
+      setTimeout(() => {
+        // 1.创建app
+        const app = Vue.createApp({
+          data() {
+            return {
+              message: "hello world",
+              counter: 100,
+              age: 22,
+              time: 233,
+              content: `<span style="color: red;font-size: 40px;">hahaha</span>`,
+            };
+          },
+          methods: {
+            formatDate(time) {
+              return "2022-10-22-" + time;
+            },
+            changeMessage(){
+              this.message = 'hello vue'
+            }
+          },
+        });
+
+        //2.挂载app
+        app.mount("#app");
+      }, 3000);
+    </script>
+  </body>
+</html>

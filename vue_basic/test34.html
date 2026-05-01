@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>v-model的修饰符</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <!-- lazy:绑定change事件 -->
+      <input type="text" v-model.lazy="message" />
+      <h2>message:{{message}}</h2>
+
+      <!-- number:自动将内容转换为数字 -->
+      <input type="text" v-model.number="count" />
+      <h2>count:{{count}} - {{typeof count}}</h2>
+      <input type="number" v-model.number="count2" />
+      <h2>count2:{{count2}} - {{typeof count2}}</h2>
+      <hr />
+      <!-- trim:去除首尾的空格 -->
+      <input type="text" v-model.trim="content" />
+      <h2>content:{{content}}</h2>
+
+      <!-- 使用多个修饰符 -->
+      <input type="text" v-model.lazy.trim="content" />
+      <h2>content:{{content}}</h2>
+    </div>
+
+    <script>
+      // 1.创建app
+      const app = Vue.createApp({
+        data() {
+          return {
+            message: "hello world",
+            count: 0,
+            count2: 0,
+            content: "",
+          };
+        },
+        watch:{
+          content(newValue){
+            console.log(newValue)
+          }
+        }
+      });
+
+      //2.挂载app
+      app.mount("#app");
+    </script>
+  </body>
+</html>

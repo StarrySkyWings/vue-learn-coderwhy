@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>v-memo指令的使用</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <div v-memo="[name]">
+        <h2>姓名：{{ name }}</h2>
+        <h2>年龄：{{ age }}</h2>
+        <h2>身高：{{ height }}</h2>
+      </div>
+      <button @click="update">change</button>
+    </div>
+
+    <script>
+      // 1.创建app
+      const app = Vue.createApp({
+        data() {
+          return {
+            name: "zhangsan",
+            age: 18,
+            height: 1.88,
+          };
+        },
+        methods: {
+          update() {
+            // this.name = 'lisi',
+            this.age=19
+          },
+        },
+      });
+
+      //2.挂载app
+      app.mount("#app");
+    </script>
+  </body>
+</html>

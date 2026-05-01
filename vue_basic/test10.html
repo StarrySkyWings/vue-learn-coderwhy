@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>v-bind绑定基本属性、绑定class、绑定数组、绑定style、直接绑定对象</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+      .color {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div>
+        <h2 :style="{color: fontColor, fontSize: fontSize + 'px'}">haha</h2>
+      </div>
+      <div>
+        <button @click="changePic">changePic</button>
+      </div>
+      <!-- <h1>{{message}}</h1> -->
+      <img :src="imgUrl" alt="" />
+
+      <a :href="href">去百度一下</a>
+
+      <!-- <button :class="isActive ? 'color':''" @click="changeColor">
+        改变颜色
+      </button> -->
+      <button
+        class="abc bac"
+        :class="{'color':isActive,'haha':true}"
+        @click="changeColor"
+      >
+        改变颜色
+      </button>
+      <button class="abc bac" :class="getObj()" @click="changeColor">
+        改变颜色
+      </button>
+
+      <h2 :class="['abc',classname]">hello world</h2>
+      <h2 :class="['abc',classname,isActive?'color':'']">hello world</h2>
+      <h2 :class="['abc',classname,{'color':isActive}]">hello world</h2>
+
+      <h3 :style="[objStyle,{'backgroundColor':'blue'}]">hello vue</h3>
+
+      <h4 :[name]="'aaaa'">hello happy</h4>
+
+      <h5 :time="time" :height="height">hello abc</h5>
+
+      <h5 v-bind="infos">hello abc</h5>
+    </div>
+
+    <script>
+      // 1.创建app
+      const app = Vue.createApp({
+        data() {
+          return {
+            infos: {
+              time: "230ms",
+              height: 1.88,
+            },
+            time: "230ms",
+            height: 1.88,
+            name: "title",
+            // message: "hello world",
+            img2: "https://img95.699pic.com/photo/50027/2033.jpg_wh860.jpg",
+            img1: "https://ts3.tc.mm.bing.net/th/id/OIP-C.DZtFsvmdkP9re_07SARvjwHaNK?rs=1&pid=ImgDetMain&o=7&rm=3",
+            imgUrl:
+              "https://ts3.tc.mm.bing.net/th/id/OIP-C.DZtFsvmdkP9re_07SARvjwHaNK?rs=1&pid=ImgDetMain&o=7&rm=3",
+            href: "www.baidu.com",
+            isActive: false,
+            classname: "haha",
+            fontColor: "blue",
+            fontSize: 30,
+            objStyle: {
+              color: "green",
+              fontSize: "50px",
+            },
+          };
+        },
+        methods: {
+          changePic() {
+            this.imgUrl = this.imgUrl === this.img1 ? this.img2 : this.img1;
+          },
+          changeColor() {
+            this.isActive = !this.isActive;
+          },
+          getObj() {
+            return { color: this.isActive, haha: true };
+          },
+        },
+      });
+
+      //2.挂载app
+      app.mount("#app");
+    </script>
+  </body>
+</html>
