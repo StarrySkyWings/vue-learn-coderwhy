@@ -9,7 +9,7 @@ const useMainStore = defineStore("main", {
     token: "",
     startDate,
     endDate,
-    isLoading: true,
+    isLoading: false,
   }),
 });
 

@@ -3,8 +3,8 @@
     <h2 class="title">热门精选</h2>
     <div class="list">
       <template v-for="(item, index) in houselist" :key="item.data.houseId">
-        <houseItemV9 v-if="item.discoveryContentType === 9" :item-data="item.data" />
-        <houseItemV3 v-else-if="item.discoveryContentType === 3" :item-data="item.data" />
+        <houseItemV9 @click="itemClick(item.data)" v-if="item.discoveryContentType === 9" :item-data="item.data" />
+        <houseItemV3 @click="itemClick(item.data)" v-else-if="item.discoveryContentType === 3" :item-data="item.data" />
       </template>
     </div>
   </div>
@@ -15,10 +15,17 @@ import houseItemV9 from '@/components/house-item-v9/house-item-v9.vue';
 import houseItemV3 from '@/components/house-item-v3/house-item-v3.vue';
 import useHomeStore from '@/stores/modules/home';
 import { storeToRefs } from 'pinia';
+import { useRouter } from 'vue-router';
 
 
 const homeStore = useHomeStore()
 const { houselist } = storeToRefs(homeStore)
+
+const router = useRouter()
+const itemClick = (item) => {
+  // 跳转到Detail页面
+  router.push('/detail/' + item.houseId)
+}
 
 </script>
 
@@ -31,7 +38,7 @@ const { houselist } = storeToRefs(homeStore)
     padding: 10px;
   }
 
-  .list{
+  .list {
     display: flex;
     flex-wrap: wrap;
   }
