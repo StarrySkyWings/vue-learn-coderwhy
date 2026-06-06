@@ -1,5 +1,10 @@
 <template>
-  <div class="search">
+  <div class="search-bar">
+    <div v-if="title" class="left">
+      <slot name="left">
+        <span>{{ title }}</span>
+      </slot>
+    </div>
     <div class="select-time">
       <div class="item start">
         <div class="name">住</div>
@@ -10,11 +15,16 @@
         <div class="date">{{ endDateStr }}</div>
       </div>
     </div>
-    <div class="content">
-      <div class="keyword">关键字/位置/民宿</div>
+    <div class="content ellipsis-text-1" @click="handleSearchClick">
+      <slot name="content">
+        <span class="keyword">{{ keyword }}</span>
+        <i class="icon-cancel" v-if="cancelIcon" @click.stop="handleCancelClick"></i>
+      </slot>
     </div>
     <div class="right">
-      <i class="icon-search"></i>
+      <slot name="right">
+        <i class="icon-search" v-if="searchIcon"></i>
+      </slot>
     </div>
   </div>
 </template>
@@ -25,24 +35,65 @@ import { formatMonthDay } from '@/utils/format_date';
 import { storeToRefs } from 'pinia';
 import { computed } from 'vue';
 
+const props = defineProps({
+  title: {
+    type: String,
+    default: ''
+  },
+  height: {
+    type: String,
+    default: '35px'
+  },
+  keyword: {
+    type: String,
+    default: '关键字/位置/民宿'
+  },
+  keyWordFontSize: {
+    type: String,
+    default: '12px'
+  },
+  searchIcon: {
+    type: Boolean,
+    default: false,
+  },
+  cancelIcon: {
+    type: Boolean,
+    default: false,
+  },
+})
+
+const emit = defineEmits(["cancelClick", "searchClick"]);
+const handleSearchClick = () => {
+  emit("searchClick");
+};
+const handleCancelClick = () => {
+  emit("cancelClick");
+};
+
 const mainStore = useMainStore()
 const { startDate, endDate } = storeToRefs(mainStore)
 
-const startDateStr = computed(() => formatMonthDay(startDate.value,'MM.DD'))
-const endDateStr = computed(() => formatMonthDay(endDate.value,'MM.DD'))
+const startDateStr = computed(() => formatMonthDay(startDate.value, 'MM.DD'))
+const endDateStr = computed(() => formatMonthDay(endDate.value, 'MM.DD'))
 
 </script>
 
 <style lang="less" scoped>
-.search {
+// 重写Vant 样式
+:global(.van-nav-bar .van-nav-bar__content .van-nav-bar__title) {
+  width: 73%;
+  max-width: 100%;
+}
+
+.search-bar {
   display: flex;
   flex-direction: row;
   align-items: center;
 
-  // height: v-bind("props.height");
-  height: 45px;
-  // line-height: v-bind("props.height");
-  line-height: 45px;
+  height: v-bind("props.height");
+  // height: 45px;
+  line-height: v-bind("props.height");
+  // line-height: 45px;
 
   padding: 0 10px;
   font-size: 14px;
@@ -113,8 +164,8 @@ const endDateStr = computed(() => formatMonthDay(endDate.value,'MM.DD'))
 
     .keyword {
       max-width: 155px;
-      // font-size: v-bind("props.keyWordFontSize");
-      font-size: 12px;
+      font-size: v-bind("props.keyWordFontSize");
+      // font-size: 12px;
     }
 
     .icon-cancel {

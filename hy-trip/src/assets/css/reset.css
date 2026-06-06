@@ -1,6 +1,6 @@
-html {
+/* html {
   line-height: 1.2;
-}
+} */
 
 body,
 h1,
@@ -13,15 +13,6 @@ li {
   margin: 0;
 }
 
-ul,
-li {
-  list-style: none;
-}
-
-a {
-  text-decoration: none;
-  color: #333;
-}
 
 img {
   vertical-align: top;

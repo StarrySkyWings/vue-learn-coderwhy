@@ -76,7 +76,9 @@ export default function useScroll(elRef) {
     // console.log(clientHeight,scrollTop,scrollHeight)
   }, 100);
   onMounted(() => {
-    if (elRef) el = elRef.value;
+    if (elRef) {
+      el = elRef.value;
+    }
     el.addEventListener("scroll", scrollListenerHandler);
   });
 

@@ -1,7 +1,15 @@
 <template>
   <div class="app">
-    <router-view></router-view>
-    <tabBar v-if="!route.meta.hideTabBar"></tabBar>
+    <!-- name属性 -->
+    <!-- <keep-alive include="home">
+      <router-view></router-view>
+    </keep-alive> -->
+    <router-view v-slot="props">
+      <keep-alive include="home,favor,order">
+        <component :is='props.Component'></component>
+      </keep-alive>
+    </router-view>
+    <tabBar v-show="!route.meta.hideTabBar"></tabBar>
     <!-- <tabBar></tabBar> -->
     <loading></loading>
     

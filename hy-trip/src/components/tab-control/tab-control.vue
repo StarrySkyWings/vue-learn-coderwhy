@@ -17,6 +17,8 @@ defineProps({
     default: () => []
   }
 })
+
+
 const emits = defineEmits(['tabItemClick'])
 const currentIndex = ref(0)
 
@@ -24,6 +26,12 @@ const itemClick = (index) => {
   currentIndex.value = index
   emits('tabItemClick', index)
 }
+const setCurrentIndex = (index) => {
+  currentIndex.value = index
+}
+
+defineExpose({ setCurrentIndex })
+
 </script>
 
 

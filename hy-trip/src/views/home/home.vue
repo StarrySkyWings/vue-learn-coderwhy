@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home" ref="homeRef">
     <homeNavBar />
     <div class="banner">
       <img src="@/assets/img/home/banner.webp" alt="">
@@ -7,8 +7,9 @@
     <homeSearchBox />
     <homeCategories />
 
-    <div class="search-bar" v-if="isShowSearchBar">
-      <searchBar/>
+    <div class="search" v-if="isShowSearchBar">
+      <searchBar height="45px" key-word-font-size="14px" :search-icon="true" key-word="关键字/位置/民宿"
+        @search-click="handleSearchClick" />
     </div>
 
     <homeContent />
@@ -16,8 +17,9 @@
   </div>
 </template>
 
+
 <script setup>
-import { computed, ref, watch } from 'vue';
+import { computed, onActivated, ref, watch } from 'vue';
 import useHomeStore from '@/stores/modules/home';
 import homeNavBar from './cpns/home-nav-bar.vue';
 import homeSearchBox from './cpns/home-search-box.vue';
@@ -25,7 +27,13 @@ import homeCategories from './cpns/home-categories.vue';
 import homeContent from './cpns/home-content.vue';
 import searchBar from '@/components/search-bar/search-bar.vue';
 import useScroll from '@/hooks/useScroll.js';
+import { useRouter } from 'vue-router';
+import useCityStore from '@/stores/modules/city.js';
+import { storeToRefs } from 'pinia';
 
+defineOptions({
+  name: 'home'
+})
 
 // 发送网络请求
 const homeStore = useHomeStore()
@@ -73,7 +81,21 @@ homeStore.fetchHouselistData()
 // useScroll(() => {
 //   return homeStore.fetchHouselistData()
 // })
-const { isReachBottom, scrollTop } = useScroll()
+const cityStore = useCityStore()
+const { currentCity } = storeToRefs(cityStore)
+const router = useRouter()
+const handleSearchClick = () => {
+  router.push({
+    path: '/search',
+    query: {
+      currentCity: currentCity.value.cityName
+    }
+  })
+}
+
+// 监听滚动到底部
+const homeRef = ref()
+const { isReachBottom, scrollTop } = useScroll(homeRef)
 watch(isReachBottom, (newValue) => {
   if (newValue) {
     homeStore.fetchHouselistData().then(() => {
@@ -92,11 +114,20 @@ const isShowSearchBar = computed(() => {
   return scrollTop.value >= 360
 })
 
+// 跳转回home时,保留原来的位置
+onActivated(() => {
+  homeRef.value?.scrollTo({
+    top: scrollTop.value
+  })
+})
 
 </script>
 
 <style lang="less" scoped>
 .home {
+  height: 100vh;
+  overflow-y: auto;
+  box-sizing: border-box;
   padding-bottom: 60px;
 }
 
@@ -106,14 +137,14 @@ const isShowSearchBar = computed(() => {
   }
 }
 
-.search-bar {
+.search {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  height: 45px;
-  padding: 16px 16px 10px;
-  background-color: #fff;
+  // height: 45px;
+  padding: 16px 16px 10px 16px;
+  background-color: white;
   z-index: 9;
 }
 </style>
